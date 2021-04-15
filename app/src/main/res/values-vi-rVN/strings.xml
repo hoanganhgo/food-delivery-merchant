@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Merchant</string>
+    <string name="order">Đơn hàng</string>
+    <string name="menu_manager">Quản lý Menu</string>
+    <string name="report">Báo cáo</string>
+    <string name="setting">Cài đặt</string>
+    <string name="exit">Thoát</string>
+</resources>

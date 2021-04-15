@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Merchant</string>
+    <string name="order">Order</string>
+    <string name="menu_manager">Menu Manager</string>
+    <string name="report">Report</string>
+    <string name="setting">Setting</string>
+    <string name="exit">Exit</string>
+</resources>
