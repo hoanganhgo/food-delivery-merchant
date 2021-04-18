@@ -6,4 +6,18 @@
     <string name="report">Report</string>
     <string name="setting">Setting</string>
     <string name="exit">Exit</string>
+    <string name="notification">Notification</string>
+    <string name="add_new">Add new</string>
+    <string name="status">Status</string>
+    <string name="category">Category</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="available">Available</string>
+    <string name="dish_name">Dish name</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="add_dish">Add dish</string>
+    <string name="enter_dish_name">Enter dish name</string>
+    <string name="enter_dish_price">Enter dish price</string>
 </resources>

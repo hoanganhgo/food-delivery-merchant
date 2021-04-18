@@ -6,4 +6,18 @@
     <string name="report">Báo cáo</string>
     <string name="setting">Cài đặt</string>
     <string name="exit">Thoát</string>
+    <string name="notification">Thông báo</string>
+    <string name="add_new">Thêm mới</string>
+    <string name="status">Trạng thái</string>
+    <string name="category">Loại nhóm</string>
+    <string name="unavailable">Hết món</string>
+    <string name="available">Còn món</string>
+    <string name="dish_name">Tên món</string>
+    <string name="price">Giá</string>
+    <string name="description">Miêu tả</string>
+    <string name="delete">Xoá</string>
+    <string name="update">Cập nhật</string>
+    <string name="add_dish">Thêm món</string>
+    <string name="enter_dish_name">Nhập tên món</string>
+    <string name="enter_dish_price">Nhập giá</string>
 </resources>
