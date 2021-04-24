@@ -18,7 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hcmus.fit.merchant.R;
+import com.hcmus.fit.merchant.models.DishModel;
 import com.hcmus.fit.merchant.models.MerchantModel;
+import com.hcmus.fit.merchant.networks.DishNetwork;
 
 public class DishDetailActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -72,10 +74,18 @@ public class DishDetailActivity extends AppCompatActivity {
             btnDeleteDish.setVisibility(View.GONE);
             btnUpdateDish.setVisibility(View.GONE);
             btnAddDish.setVisibility(View.VISIBLE);
+
+            btnAddDish.setOnClickListener(v -> {
+                DishNetwork.createNewDish(v.getContext(), new DishModel(), "1234", "A");
+            });
         } else if (contentView == 1) {
             btnAddDish.setVisibility(View.GONE);
             btnDeleteDish.setVisibility(View.VISIBLE);
             btnUpdateDish.setVisibility(View.VISIBLE);
+
+            btnUpdateDish.setOnClickListener(v -> {
+                DishNetwork.updateDish(v.getContext(), new DishModel(), "123", "123", "123");
+            });
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

@@ -20,4 +20,8 @@
     <string name="add_dish">Add dish</string>
     <string name="enter_dish_name">Enter dish name</string>
     <string name="enter_dish_price">Enter dish price</string>
+    <string name="waiting">Waiting</string>
+    <string name="processing">Processing</string>
+    <string name="cancel">Cancel</string>
+    <string name="history">History</string>
 </resources>

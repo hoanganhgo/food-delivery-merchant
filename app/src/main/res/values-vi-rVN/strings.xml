@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Merchant</string>
+    <string name="app_name">Nhà hàng</string>
     <string name="order">Đơn hàng</string>
     <string name="menu_manager">Quản lý Menu</string>
     <string name="report">Báo cáo</string>
@@ -20,4 +20,8 @@
     <string name="add_dish">Thêm món</string>
     <string name="enter_dish_name">Nhập tên món</string>
     <string name="enter_dish_price">Nhập giá</string>
+    <string name="waiting">Đang chờ</string>
+    <string name="processing">Đang xử lý</string>
+    <string name="cancel">Đã huỷ</string>
+    <string name="history">Lịch sử</string>
 </resources>

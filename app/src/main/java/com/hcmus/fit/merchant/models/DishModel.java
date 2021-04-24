@@ -8,6 +8,9 @@ public class DishModel {
     private int status;
     private int price;
 
+    public DishModel() {
+    }
+
     public DishModel(int id, String name, String avatar, String category, int status, int price) {
         this.id = id;
         this.name = name;
