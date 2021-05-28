@@ -21,7 +21,19 @@
     <string name="enter_dish_name">Nhập tên món</string>
     <string name="enter_dish_price">Nhập giá</string>
     <string name="waiting">Đang chờ</string>
-    <string name="processing">Đang xử lý</string>
-    <string name="cancel">Đã huỷ</string>
+    <string name="cancel">Huỷ món</string>
     <string name="history">Lịch sử</string>
+    <string name="total">Tổng tiền</string>
+    <string name="customer_name">Tên khách</string>
+    <string name="address_delivery">Địa chỉ giao</string>
+    <string name="note">Ghi chú</string>
+    <string name="call_customer">Gọi khách</string>
+    <string name="receive">Nhận đơn</string>
+    <string name="wait_shipper">Đợi shipper</string>
+    <string name="wait_dish">Chờ món</string>
+    <string name="shipping">Đang giao</string>
+    <string name="shipper_name">Tên tài xế</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="rate">Đánh giá</string>
+    <string name="call_shipper">Gọi shipper</string>
 </resources>

@@ -20,7 +20,19 @@
     <string name="enter_dish_name">Enter dish name</string>
     <string name="enter_dish_price">Enter dish price</string>
     <string name="waiting">Waitting</string>
-    <string name="processing">Processing</string>
     <string name="cancel">Cancel</string>
     <string name="history">History</string>
+    <string name="total">Total</string>
+    <string name="customer_name">Customer name</string>
+    <string name="address_delivery">Address delivery</string>
+    <string name="note">Note</string>
+    <string name="call_customer">Call customer</string>
+    <string name="receive">Receive</string>
+    <string name="wait_shipper">Wait shipper</string>
+    <string name="wait_dish">Wait dish</string>
+    <string name="shipping">Shipping</string>
+    <string name="shipper_name">Shipper name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="rate">Rate</string>
+    <string name="call_shipper">Call shipper</string>
 </resources>

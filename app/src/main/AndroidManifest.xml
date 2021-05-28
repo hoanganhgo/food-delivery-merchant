@@ -32,6 +32,9 @@
         <activity
             android:name=".activities.DishDetailActivity">
         </activity>
+        <activity android:name=".activities.OrderWaitingActivity"/>
+        <activity android:name=".activities.OrderWaitShipperActivity"/>
+        <activity android:name=".activities.OrderWaitDishActivity"/>
     </application>
 
 </manifest>

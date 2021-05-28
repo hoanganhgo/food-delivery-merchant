@@ -84,7 +84,7 @@ public class DishDetailActivity extends AppCompatActivity {
             btnUpdateDish.setVisibility(View.VISIBLE);
 
             btnUpdateDish.setOnClickListener(v -> {
-                DishNetwork.updateDish(v.getContext(), new DishModel(), "123", "123", "123");
+                //DishNetwork.updateDish(v.getContext(), new DishModel(), "123", "123", "123");
             });
         }
 

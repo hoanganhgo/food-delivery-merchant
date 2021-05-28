@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_order"
-        android:name="com.hcmus.fit.merchant.ui.OrderFragment"
+        android:name="com.hcmus.fit.merchant.ui.ManagerFragment"
         android:label="@string/order"
         tools:layout="@layout/fragment_order" />
 
