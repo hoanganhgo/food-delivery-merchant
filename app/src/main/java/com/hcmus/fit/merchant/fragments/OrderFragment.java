@@ -54,6 +54,7 @@ public class OrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OrderManager.getInstance().setActivity(getActivity());
     }
 
     @Override
@@ -68,6 +69,7 @@ public class OrderFragment extends Fragment {
         Class<?> orderDetail = getClassOrderDetail();
         lvOrder.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(getContext(), orderDetail);
+            intent.putExtra("position", position);
             startActivity(intent);
         });
 

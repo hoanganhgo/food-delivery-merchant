@@ -48,7 +48,7 @@ public class MenuFragment extends Fragment {
     }
 
     private void genDishData() {
-        DishModel dish = new DishModel(1,"","","food",1,1200);
+        DishModel dish = new DishModel("76uyiuwyrwr","","","food",1200);
         dishModelList.add(dish);
         dishModelList.add(dish);
         dishModelList.add(dish);

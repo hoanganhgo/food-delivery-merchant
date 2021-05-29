@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.models.OrderModel;
+import com.hcmus.fit.merchant.utils.AppUtil;
 
 import java.util.List;
 
@@ -58,7 +59,15 @@ public class OrderAdapter extends BaseAdapter {
             holder = (MyViewHolder) convertView.getTag();
         }
 
-//        OrderModel orderModel = orderModelList.get(position);
+        OrderModel orderModel = orderModelList.get(position);
+        holder.tvOrderId.setText("#" + orderModel.getOrderId());
+        holder.tvOrderDate.setText(AppUtil.getDateString(orderModel.getCalendar()));
+        holder.tvCustomerName.setText(orderModel.getCustomerName());
+        holder.tvOrderPrice.setText(AppUtil.convertCurrency(orderModel.getSubTotal()));
+        holder.tvOrderTime.setText(AppUtil.getTimeString(orderModel.getCalendar()));
+        holder.tvDishNum.setText(orderModel.getDishNum()
+                + " " + convertView.getResources().getString(R.string.dish));
+        holder.tvDistance.setText(orderModel.getDistance() + " km");
 
         return convertView;
     }

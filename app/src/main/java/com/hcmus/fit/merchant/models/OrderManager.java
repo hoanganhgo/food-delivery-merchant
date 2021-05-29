@@ -1,5 +1,6 @@
 package com.hcmus.fit.merchant.models;
 
+import android.app.Activity;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class OrderManager {
     private final ArrayList<OrderModel> waitDishList = new ArrayList<>();
     private final ArrayList<OrderModel> shippingList = new ArrayList<>();
 
+    private Activity activity;
     private BaseAdapter waitingAdapter;
     private BaseAdapter waitShipperAdapter;
     private BaseAdapter waitDishAdapter;
@@ -19,23 +21,23 @@ public class OrderManager {
 
     private OrderManager() {
         OrderModel orderModel = new OrderModel();
-        waitingList.add(orderModel);
-        waitingList.add(orderModel);
-        waitingList.add(orderModel);
-        waitingList.add(orderModel);
-
-        waitShipperList.add(orderModel);
-        waitShipperList.add(orderModel);
-
-        waitDishList.add(orderModel);
-        waitDishList.add(orderModel);
-        waitDishList.add(orderModel);
-
-        shippingList.add(orderModel);
-        shippingList.add(orderModel);
-        shippingList.add(orderModel);
-        shippingList.add(orderModel);
-        shippingList.add(orderModel);
+//        waitingList.add(orderModel);
+//        waitingList.add(orderModel);
+//        waitingList.add(orderModel);
+//        waitingList.add(orderModel);
+//
+//        waitShipperList.add(orderModel);
+//        waitShipperList.add(orderModel);
+//
+//        waitDishList.add(orderModel);
+//        waitDishList.add(orderModel);
+//        waitDishList.add(orderModel);
+//
+//        shippingList.add(orderModel);
+//        shippingList.add(orderModel);
+//        shippingList.add(orderModel);
+//        shippingList.add(orderModel);
+//        shippingList.add(orderModel);
     }
 
     public static OrderManager getInstance() {
@@ -62,8 +64,20 @@ public class OrderManager {
         return shippingList;
     }
 
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
     public void setWaitingAdapter(BaseAdapter waitingAdapter) {
         this.waitingAdapter = waitingAdapter;
+    }
+
+    public void notifyDataChanged() {
+        if (this.waitingAdapter != null) {
+            this.activity.runOnUiThread(() -> {
+                this.waitingAdapter.notifyDataSetChanged();
+            });
+        }
     }
 
     public void setWaitShipperAdapter(BaseAdapter waitShipperAdapter) {
