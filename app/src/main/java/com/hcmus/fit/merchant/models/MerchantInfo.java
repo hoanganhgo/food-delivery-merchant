@@ -47,7 +47,7 @@ public class MerchantInfo {
     }
 
     public String getToken() {
-        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTc3MWUyYjcyNDVmMjgxODJjZjgyZiIsImV4cCI6MTY1MzgxNTUyMy4wNjMsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTYyMjA0MTc2N30.ZDyLONmSl3VYEdyoVvZByA_4jqcS8JTwVzI6vgA_VpI";
+        return token;
     }
 
     public void setPhoneNumber(String phoneNumber) {

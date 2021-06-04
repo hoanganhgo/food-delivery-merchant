@@ -12,6 +12,9 @@ public class API {
     private static final String SERVER = env == 0 ? localHost : releaseHost;
     public static final String SERVER_SOCKET = env == 0 ? localSocket : releaseSocket;
 
+    public static final String SEND_PHONE_OTP = SERVER + "/auth/phone/otp/call";
+    public static final String AUTH_PHONE_VERIFY = SERVER + "/auth/phone/otp/verify";
+    public static final String GET_USER_INFO = SERVER + "/users/{id}";
     public static String CREATE_NEW_DISH = SERVER + "/restaurants/{restaurantID}/foodcategories/{foodCategoryID}/foods";
     public static String UPDATE_DISH = SERVER + "/restaurants/{restaurantID}/foodcategories/{foodCategoryID}/foods/{foodID}";
 }

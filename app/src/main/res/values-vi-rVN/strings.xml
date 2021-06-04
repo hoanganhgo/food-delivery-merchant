@@ -37,4 +37,9 @@
     <string name="rate">Đánh giá</string>
     <string name="call_shipper">Gọi shipper</string>
     <string name="dish">món</string>
+    <string name="login">Đăng nhập</string>
+    <string name="enter_phone">Nhập số điện thoại của bạn</string>
+    <string name="confirm_otp">Xác nhận OTP</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="notify_phone_number">Số điện thoại phải có 10 ký tự</string>
 </resources>

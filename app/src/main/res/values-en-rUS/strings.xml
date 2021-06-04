@@ -37,4 +37,9 @@
     <string name="rate">Rate</string>
     <string name="call_shipper">Call shipper</string>
     <string name="dish">dish</string>
+    <string name="login">Login</string>
+    <string name="enter_phone">Enter your phone number</string>
+    <string name="confirm_otp">Confirm OTP</string>
+    <string name="confirm">Confirm</string>
+    <string name="notify_phone_number">Phone number must be 10 characters</string>
 </resources>

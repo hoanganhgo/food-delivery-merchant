@@ -96,7 +96,7 @@ public class MySocket {
         try {
             json.put("orderID", orderId);
             MySocket.getInstance().emit(EventConstant.REQUEST_MERCHANT_CONFIRM_ORDER, json);
-            Log.d("socket","receive order >>>");
+            Log.d("socket","confirm order >>>");
         } catch (JSONException e) {
             e.printStackTrace();
         }
