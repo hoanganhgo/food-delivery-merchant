@@ -38,8 +38,19 @@
     <string name="call_shipper">Gọi shipper</string>
     <string name="dish">món</string>
     <string name="login">Đăng nhập</string>
-    <string name="enter_phone">Nhập số điện thoại của bạn</string>
+    <string name="enter_phone">Nhập số điện thoại</string>
     <string name="confirm_otp">Xác nhận OTP</string>
     <string name="confirm">Xác nhận</string>
     <string name="notify_phone_number">Số điện thoại phải có 10 ký tự</string>
+    <string name="add_option">Thêm tuỳ chọn</string>
+    <string name="option_dish">Tuỳ chọn món ăn</string>
+    <string name="choose_1">Chọn 1</string>
+    <string name="choose_more">Chọn nhiều</string>
+    <string name="name">Tên</string>
+    <string name="add">Thêm</string>
+    <string name="please_enter_dish_name">Vui lòng nhập tên món ăn</string>
+    <string name="please_enter_price">Vui lòng nhập giá</string>
+    <string name="please_add_avatar">Vui lòng thêm ảnh đại diện món ăn</string>
+    <string name="enter_description">Nhập miêu tả của bạn...</string>
+    <string name="enter_new_category">Nhập loại món ăn mới</string>
 </resources>

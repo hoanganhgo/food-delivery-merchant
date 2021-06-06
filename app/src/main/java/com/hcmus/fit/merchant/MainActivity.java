@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        SignInNetwork.getUserInfo(this);
+        SignInNetwork.getMerchantInfo(this);
         MySocket.getInstance();
     }
 

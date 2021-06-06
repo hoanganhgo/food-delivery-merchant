@@ -1,5 +1,8 @@
 package com.hcmus.fit.merchant.utils;
 
+import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 public class AppUtil {
@@ -57,4 +60,9 @@ public class AppUtil {
         return s.toString();
     }
 
+    public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 }

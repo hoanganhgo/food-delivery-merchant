@@ -41,4 +41,15 @@
     <string name="confirm_otp">Confirm OTP</string>
     <string name="confirm">Confirm</string>
     <string name="notify_phone_number">Phone number must be 10 characters</string>
+    <string name="add_option">Add option</string>
+    <string name="option_dish">Option Dish</string>
+    <string name="choose_1">Choose 1</string>
+    <string name="choose_more">Choose more</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
+    <string name="please_enter_dish_name">Please enter dish name</string>
+    <string name="please_enter_price">Please enter price</string>
+    <string name="please_add_avatar">Please add avatar for dish</string>
+    <string name="enter_description">Enter your description...</string>
+    <string name="enter_new_category">Enter new category</string>
 </resources>

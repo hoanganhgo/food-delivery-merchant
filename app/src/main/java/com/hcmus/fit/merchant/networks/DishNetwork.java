@@ -1,58 +1,41 @@
 package com.hcmus.fit.merchant.networks;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.hcmus.fit.merchant.adapters.CategoryAdapter;
 import com.hcmus.fit.merchant.constant.API;
+import com.hcmus.fit.merchant.models.CategoryModel;
 import com.hcmus.fit.merchant.models.DishModel;
+import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.utils.QueryUtil;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DishNetwork {
-    public static void createNewDish(Context context, DishModel dishModel, String restaurantID, String foodCategoryID) {
-        Map<String, String> params = new HashMap<>();
-        params.put("restaurantID", restaurantID);
-        params.put("foodCategoryID", foodCategoryID);
-        String query = QueryUtil.createQuery(API.CREATE_NEW_DISH, params);
-        Log.d("dish", query);
-
-        RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest req = new StringRequest(Request.Method.POST, query,
-                response -> {
-                    try {
-                        JSONObject json = new JSONObject(response);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> Log.d("dish", error.getMessage()))
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-
-                return params;
-            }
-        };
-
-        queue.add(req);
-    }
-
     public static void updateDish(Context context, DishModel dishModel, String restaurantID,
                                   String foodCategoryID, String foodId) {
         Map<String, String> params = new HashMap<>();
@@ -79,6 +62,173 @@ public class DishNetwork {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
+                return params;
+            }
+        };
+
+        queue.add(req);
+    }
+
+    public static void postDish(Context context, DishModel dishModel) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        dishModel.getAvatar().compress(Bitmap.CompressFormat.PNG, 100, stream);
+        final byte[] bitMapData = stream.toByteArray();
+        ContentType contentType = ContentType.create("image/png");
+        String fileName = "merchant_dish.png";
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.addBinaryBody("image", bitMapData, contentType, fileName);
+
+        JSONObject dishJson = null;
+        try {
+            dishJson = dishModel.createJson();
+            builder.addTextBody("data", dishJson.toString());
+            Log.d("data json", dishJson.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        HttpEntity httpEntity = builder.build();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("restaurantID", MerchantInfo.getInstance().getId());
+        params.put("categoryID", dishModel.getCategoryId());
+        String query = QueryUtil.createQuery(API.CREATE_NEW_DISH, params);
+
+        StringRequest req = new StringRequest(Request.Method.POST, query,
+                response -> {
+                    Log.d("postDish", response.toString());
+                },
+                error -> Log.d("postDish", error.getMessage()))
+        {
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                try {
+                    httpEntity.writeTo(bos);
+                } catch (IOException e) {
+                    VolleyLog.e("IOException writing to ByteArrayOutputStream");
+                }
+                return bos.toByteArray();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return httpEntity.getContentType().getValue();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
+                return headers;
+            }
+        };
+
+        queue.add(req);
+    }
+
+    public static void getCategories(Context context, CategoryAdapter cateAdapter) {
+        Map<String, String> params = new HashMap<>();
+        params.put("restaurantID", MerchantInfo.getInstance().getId());
+        String query = QueryUtil.createQuery(API.CREATE_CATEGORY, params);
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest req = new StringRequest(Request.Method.GET, query,
+                response -> {
+                    Log.d("category", response.toString());
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        int errorCode = json.getInt("errorCode");
+                        if (errorCode == 0) {
+                            JSONArray data = json.getJSONArray("data");
+                            ArrayList<CategoryModel> categories = MerchantInfo.getInstance().getCategories();
+
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject categoryJson = data.getJSONObject(i);
+                                String id = categoryJson.getString("id");
+                                String name = categoryJson.getString("Name");
+                                CategoryModel categoryModel = new CategoryModel(id, name);
+                                categories.add(categoryModel);
+                            }
+
+                            cateAdapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.d("category", error.getMessage()))
+        {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
+                return params;
+            }
+        };
+
+        queue.add(req);
+    }
+
+    public static void createCategory(Context context, String category, CategoryAdapter cateAdapter, Spinner cateSpin) {
+        Map<String, String> params = new HashMap<>();
+        params.put("restaurantID", MerchantInfo.getInstance().getId());
+        String query = QueryUtil.createQuery(API.CREATE_CATEGORY, params);
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest req = new StringRequest(Request.Method.POST, query,
+                response -> {
+                    Log.d("category", response.toString());
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        int errorCode = json.getInt("errorCode");
+                        if (errorCode == 0) {
+                            JSONObject data = json.getJSONObject("data");
+                            String id = data.getString("_id");
+                            CategoryModel categoryModel = new CategoryModel(id, category);
+                            MerchantInfo.getInstance().getCategories().add(categoryModel);
+                            cateSpin.setSelection(MerchantInfo.getInstance().getCategories().size());
+                            cateAdapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.d("category", error.getMessage()))
+        {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject();
+                    json.put("name", category);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return json.toString().getBytes(StandardCharsets.UTF_8);
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
                 return params;
             }
         };

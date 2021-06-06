@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuFragment extends Fragment {
-    private List<DishModel> dishModelList = new ArrayList<>();
-
     private ListView lvDish;
     private Button btnAddDish;
 
@@ -38,28 +36,17 @@ public class MenuFragment extends Fragment {
             startActivity(intent);
         });
 
-        dishAdapter = new DishAdapter(getContext(), dishModelList);
+        dishAdapter = new DishAdapter(getContext());
 
         lvDish = root.findViewById(R.id.lv_dish);
         lvDish.setAdapter(dishAdapter);
-        genDishData();
 
         return root;
     }
 
-    private void genDishData() {
-        DishModel dish = new DishModel("76uyiuwyrwr","","","food",1200);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
-        dishModelList.add(dish);
+    @Override
+    public void onStart() {
+        super.onStart();
         dishAdapter.notifyDataSetChanged();
     }
 }

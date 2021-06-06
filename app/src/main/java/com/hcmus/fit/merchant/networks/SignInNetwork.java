@@ -14,11 +14,13 @@ import com.android.volley.toolbox.Volley;
 import com.hcmus.fit.merchant.MainActivity;
 import com.hcmus.fit.merchant.activities.OTPLoginActivity;
 import com.hcmus.fit.merchant.constant.API;
+import com.hcmus.fit.merchant.models.AddressModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.utils.JWTUtils;
 import com.hcmus.fit.merchant.utils.QueryUtil;
 import com.hcmus.fit.merchant.utils.StorageUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -103,29 +105,29 @@ public class SignInNetwork {
         queue.add(req);
     }
 
-    public static void getUserInfo(Context context) {
+    public static void getMerchantInfo(Context context) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        Map<String, String> params = new HashMap<>();
-        String userId = JWTUtils.getUserIdFromToken(MerchantInfo.getInstance().getToken());
-        params.put("id", userId);
-        String query = QueryUtil.createQuery(API.GET_USER_INFO, params);
-
-        StringRequest req = new StringRequest(Request.Method.GET, query,
+        StringRequest req = new StringRequest(Request.Method.GET, API.GET_USER_INFO,
                 response -> {
-                    Log.d("userInfo", response);
+                    Log.d("merchantInfo", response);
                     JSONObject json = null;
                     try {
                         json = new JSONObject(response);
                         int error = json.getInt("errorCode");
 
                         if (error == 0) {
-                            JSONObject data = json.getJSONObject("data");
-                            JSONObject user = data.getJSONObject("user");
-                            String id = user.getString("id");
-                            String phone = user.getString("Phone");
+                            JSONArray dataArr = json.getJSONArray("data");
+                            JSONObject data = dataArr.getJSONObject(0);
+                            String id = data.getString("id");
+                            String name = data.getString("Name");
+                            String avatar = data.getString("Avatar");
+
                             MerchantInfo.getInstance().setId(id);
-                            MerchantInfo.getInstance().setPhoneNumber(phone);
+                            MerchantInfo.getInstance().setName(name);
+                            MerchantInfo.getInstance().setAvatar(avatar);
+
+                            getMerchantDetail(context, id);
                         }
 
                     } catch (JSONException e) {
@@ -133,7 +135,7 @@ public class SignInNetwork {
                     }
 
                 },
-                error -> Log.d("userInfo", error.getMessage()))
+                error -> Log.d("merchantInfo", error.getMessage()))
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -146,5 +148,53 @@ public class SignInNetwork {
 
         queue.add(req);
     }
+
+    public static void getMerchantDetail(Context context, String merchantId) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("restaurantID", merchantId);
+        String query = QueryUtil.createQuery(API.GET_USER_DETAIL, params);
+
+        StringRequest req = new StringRequest(Request.Method.GET, query,
+                response -> {
+                    Log.d("merchantInfo", response);
+                    JSONObject json = null;
+                    try {
+                        json = new JSONObject(response);
+                        int error = json.getInt("errorCode");
+
+                        if (error == 0) {
+                            JSONObject data = json.getJSONObject("data");
+                            String phoneNumber = data.getString("Phone");
+                            String fullAddress = data.getString("FullAddress");
+                            JSONObject locationJson = data.getJSONObject("Geolocation");
+                            double longitude = locationJson.getDouble("longitude");
+                            double latitude = locationJson.getDouble("latitude");
+
+                            MerchantInfo.getInstance().setPhoneNumber(phoneNumber);
+                            AddressModel addressModel = new AddressModel(fullAddress, latitude, longitude);
+                            MerchantInfo.getInstance().setAddress(addressModel);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                },
+                error -> Log.d("merchantInfo", error.getMessage()))
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
+                return params;
+            }
+        };
+
+        queue.add(req);
+    }
+
 
 }

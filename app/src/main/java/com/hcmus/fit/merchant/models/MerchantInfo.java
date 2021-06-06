@@ -1,14 +1,18 @@
 package com.hcmus.fit.merchant.models;
 
+import java.util.ArrayList;
+
 public class MerchantInfo {
     private static MerchantInfo instance = null;
 
     private String id = "";
-    private String firstName = "";
-    private String lastName = "";
+    private String name = "";
     private String phoneNumber = "";
     private String email = "";
     private String avatar = "";
+    private AddressModel address;
+    private final ArrayList<CategoryModel> categories = new ArrayList<>();
+    private final ArrayList<DishModel> dishList = new ArrayList<>();
     private String token = "";
 
     private MerchantInfo() {
@@ -26,12 +30,12 @@ public class MerchantInfo {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhoneNumber() {
@@ -47,7 +51,7 @@ public class MerchantInfo {
     }
 
     public String getToken() {
-        return token;
+        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhY2Y3OGE2NGE0MDZhODQ3ODJkYyIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTYyMjAzOTU2NCwiZXhwIjoxNjUzNzQ3NTgyLjEzM30.Vq0U2GcGLvIfbV0vbdxcaA61Lv4_5VcJn4QrhzlUWtA";
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -62,20 +66,24 @@ public class MerchantInfo {
         this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public ArrayList<CategoryModel> getCategories() {
+        return categories;
+    }
+
+    public ArrayList<DishModel> getDishList() {
+        return dishList;
+    }
+
+    public void setAddress(AddressModel address) {
+        this.address = address;
     }
 
     public void clear() {

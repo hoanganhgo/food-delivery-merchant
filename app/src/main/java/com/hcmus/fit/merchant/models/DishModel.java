@@ -1,21 +1,25 @@
 package com.hcmus.fit.merchant.models;
 
+import android.graphics.Bitmap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DishModel {
     private String id;
     private String name;
-    private String avatar;
+    private String avatarUri = null;
+    private Bitmap avatar = null;
+    private String categoryId;
     private String category;
     private int price;
+    private final List<OptionModel> optionList = new ArrayList<>();
 
     public DishModel() {
-    }
-
-    public DishModel(String id, String name, String avatar, String category, int price) {
-        this.id = id;
-        this.name = name;
-        this.avatar = avatar;
-        this.category = category;
-        this.price = price;
     }
 
     public String getId() {
@@ -34,12 +38,20 @@ public class DishModel {
         this.name = name;
     }
 
-    public String getAvatar() {
+    public Bitmap getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Bitmap avatar) {
         this.avatar = avatar;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategory() {
@@ -56,5 +68,52 @@ public class DishModel {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void addOption(OptionModel optionModel) {
+        this.optionList.add(optionModel);
+    }
+
+    public int getPriceTotal() {
+        int total = price;
+
+        for (OptionModel optionModel : this.optionList) {
+            for (ItemModel itemModel : optionModel.getItemList()) {
+                total += itemModel.getPrice();
+            }
+        }
+
+        return total;
+    }
+
+    public void checkMaxSelect() {
+        for (OptionModel optionModel : optionList) {
+            optionModel.checkMaxSelect();
+        }
+    }
+
+    public String getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(String avatarUri) {
+        this.avatarUri = avatarUri;
+    }
+
+    public JSONObject createJson() throws JSONException {
+        JSONObject dishJson = new JSONObject();
+        dishJson.put("name", this.name);
+        dishJson.put("price", this.price);
+
+        JSONArray optionArray = new JSONArray();
+
+        for (OptionModel optionModel : this.optionList) {
+            JSONObject jsonOption = optionModel.createJson();
+            optionArray.put(jsonOption);
+        }
+
+        dishJson.put("options", optionArray);
+
+        return dishJson;
     }
 }
