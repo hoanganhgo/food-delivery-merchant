@@ -16,7 +16,6 @@ import com.hcmus.fit.merchant.activities.OTPLoginActivity;
 import com.hcmus.fit.merchant.constant.API;
 import com.hcmus.fit.merchant.models.AddressModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
-import com.hcmus.fit.merchant.utils.JWTUtils;
 import com.hcmus.fit.merchant.utils.QueryUtil;
 import com.hcmus.fit.merchant.utils.StorageUtil;
 

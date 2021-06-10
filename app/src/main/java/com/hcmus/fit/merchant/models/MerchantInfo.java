@@ -78,6 +78,16 @@ public class MerchantInfo {
         return categories;
     }
 
+    public int getIndexCategory(String categoryId) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).getId().equals(categoryId)) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     public ArrayList<DishModel> getDishList() {
         return dishList;
     }

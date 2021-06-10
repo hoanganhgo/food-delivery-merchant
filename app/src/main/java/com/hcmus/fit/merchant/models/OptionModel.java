@@ -17,11 +17,10 @@ public class OptionModel {
     public OptionModel() {
     }
 
-    public OptionModel(int id, int maxSelect, String name, List<ItemModel> itemList) {
+    public OptionModel(int id, int maxSelect, String name) {
         this.id = id;
         this.maxSelect = maxSelect;
         this.name = name;
-        this.itemList = itemList;
     }
 
     public int getId() {

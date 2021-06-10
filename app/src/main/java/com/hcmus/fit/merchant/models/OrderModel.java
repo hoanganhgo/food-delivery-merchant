@@ -19,6 +19,7 @@ public class OrderModel {
 
     private ArrayList<DishOrder> dishOrderList = new ArrayList<>();
 
+    private ShipperModel shipper;
 
     private double distance;
     private long completeAt;
@@ -91,6 +92,14 @@ public class OrderModel {
         this.dishOrderList = dishOrderList;
     }
 
+    public ShipperModel getShipper() {
+        return shipper;
+    }
+
+    public void setShipper(ShipperModel shipper) {
+        this.shipper = shipper;
+    }
+
     public double getDistance() {
         return distance;
     }
@@ -112,9 +121,10 @@ public class OrderModel {
             JSONObject foodJson = foodArray.getJSONObject(i);
 
             DishModel dishModel = new DishModel();
-            dishModel.setId(foodJson.getString("Food"));
+            dishModel.setId(foodJson.getString("id"));
             dishModel.setPrice(foodJson.getInt("Price"));
-            dishModel.setName("EMPTY");
+            dishModel.setName(foodJson.getString("Name"));
+            dishModel.setOptions(foodJson.getString("Options"));
 
             DishOrder dishOrder = new DishOrder(dishModel, foodJson.getInt("Quantity"));
 

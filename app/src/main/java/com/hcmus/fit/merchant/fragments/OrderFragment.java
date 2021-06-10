@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.hcmus.fit.merchant.R;
-import com.hcmus.fit.merchant.activities.OrderWaitDishActivity;
-import com.hcmus.fit.merchant.activities.OrderWaitShipperActivity;
-import com.hcmus.fit.merchant.activities.OrderWaitingActivity;
+import com.hcmus.fit.merchant.activities.OrderActivity;
 import com.hcmus.fit.merchant.adapters.OrderAdapter;
 import com.hcmus.fit.merchant.models.OrderManager;
 import com.hcmus.fit.merchant.models.OrderModel;
@@ -66,9 +64,9 @@ public class OrderFragment extends Fragment {
         lvOrder = root.findViewById(R.id.lv_order);
         lvOrder.setAdapter(orderAdapter);
 
-        Class<?> orderDetail = getClassOrderDetail();
         lvOrder.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(getContext(), orderDetail);
+            Intent intent = new Intent(getContext(), OrderActivity.class);
+            intent.putExtra("title", this.title);
             intent.putExtra("position", position);
             startActivity(intent);
         });
@@ -79,26 +77,14 @@ public class OrderFragment extends Fragment {
         return root;
     }
 
-    public int getTitle() {
-        return title;
+    @Override
+    public void onStart() {
+        super.onStart();
+        orderAdapter.notifyDataSetChanged();
     }
 
-    private Class<?> getClassOrderDetail() {
-        switch (title) {
-            case R.string.waiting:
-                return OrderWaitingActivity.class;
-
-            case R.string.wait_shipper:
-                return OrderWaitShipperActivity.class;
-
-            case R.string.wait_dish:
-                return OrderWaitDishActivity.class;
-
-            case R.string.shipping:
-                return OrderWaitShipperActivity.class;
-        }
-
-        return OrderWaitingActivity.class;
+    public int getTitle() {
+        return title;
     }
 
     private void setupAdapter() {

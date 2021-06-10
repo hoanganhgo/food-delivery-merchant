@@ -16,6 +16,7 @@ public class DishModel {
     private Bitmap avatar = null;
     private String categoryId;
     private String category;
+    private String options;
     private int price;
     private final List<OptionModel> optionList = new ArrayList<>();
 
@@ -74,6 +75,14 @@ public class DishModel {
         this.optionList.add(optionModel);
     }
 
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
     public int getPriceTotal() {
         int total = price;
 
@@ -115,5 +124,13 @@ public class DishModel {
         dishJson.put("options", optionArray);
 
         return dishJson;
+    }
+
+    public void createListOption(JSONArray optionArr) throws JSONException {
+        for (int i = 0; i < optionArr.length(); i++) {
+            JSONObject optionJson = optionArr.getJSONObject(i);
+            OptionModel optionModel = new OptionModel();
+            optionModel.setOptionWithJson(optionJson);
+        }
     }
 }

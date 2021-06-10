@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,6 +37,7 @@ import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.models.OptionModel;
 import com.hcmus.fit.merchant.networks.DishNetwork;
 import com.hcmus.fit.merchant.utils.WidgetUtil;
+import com.squareup.picasso.Picasso;
 
 public class DishDetailActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -81,6 +83,12 @@ public class DishDetailActivity extends AppCompatActivity {
         rlStatus = findViewById(R.id.rl_status);
         btnAddCategory = findViewById(R.id.btn_add_category);
 
+        Intent intent = getIntent();
+        int contentView = intent.getIntExtra("contentView", 0);
+        int position = intent.getIntExtra("position", 0);
+
+
+
         btnAvatar.setOnClickListener(v -> {
             this.dispatchTakePictureIntent();
         });
@@ -109,6 +117,7 @@ public class DishDetailActivity extends AppCompatActivity {
             btnDeleteDish.setVisibility(View.VISIBLE);
             btnUpdateDish.setVisibility(View.VISIBLE);
             rlStatus.setVisibility(View.VISIBLE);
+            setContentEditView(position);
         }
 
         btnAddCategory.setOnClickListener(v -> {
@@ -205,12 +214,17 @@ public class DishDetailActivity extends AppCompatActivity {
                 dishModel.setPrice(Integer.parseInt(editPrice.getText().toString()));
                 dishModel.checkMaxSelect();
                 DishNetwork.postDish(this, dishModel);
-
-                //code temp
-//                MerchantInfo.getInstance().getDishList().add(dishModel);
-//                onBackPressed();
             }
         });
+    }
+
+    private void setContentEditView(int position) {
+        DishModel dishModel = MerchantInfo.getInstance().getDishList().get(position);
+        Picasso.with(this).load(dishModel.getAvatarUri()).into(btnAvatar);
+        editDishName.setText(dishModel.getName());
+        editPrice.setText(String.valueOf(dishModel.getPrice()));
+        int index = MerchantInfo.getInstance().getIndexCategory(dishModel.getCategoryId());
+        snDishCategory.setSelection(index);
     }
 
     @Override

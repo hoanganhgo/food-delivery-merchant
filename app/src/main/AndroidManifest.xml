@@ -36,9 +36,7 @@
             android:theme="@style/Theme.Merchant.NoActionBar">
         </activity>
         <activity android:name=".activities.DishDetailActivity"/>
-        <activity android:name=".activities.OrderWaitingActivity"/>
-        <activity android:name=".activities.OrderWaitShipperActivity"/>
-        <activity android:name=".activities.OrderWaitDishActivity"/>
+        <activity android:name=".activities.OrderActivity"/>
         <activity android:name=".activities.OTPLoginActivity"/>
     </application>
 

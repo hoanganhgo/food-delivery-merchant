@@ -32,8 +32,8 @@
     <string name="wait_shipper">Đợi shipper</string>
     <string name="wait_dish">Chờ món</string>
     <string name="shipping">Đang giao</string>
-    <string name="shipper_name">Tên tài xế</string>
-    <string name="phone_number">Số điện thoại</string>
+    <string name="shipper_name">Tên tài xế:</string>
+    <string name="phone_number">Số điện thoại:</string>
     <string name="rate">Đánh giá</string>
     <string name="call_shipper">Gọi shipper</string>
     <string name="dish">món</string>
@@ -53,4 +53,5 @@
     <string name="please_add_avatar">Vui lòng thêm ảnh đại diện món ăn</string>
     <string name="enter_description">Nhập miêu tả của bạn...</string>
     <string name="enter_new_category">Nhập loại món ăn mới</string>
+    <string name="options">Tuỳ chọn thêm</string>
 </resources>

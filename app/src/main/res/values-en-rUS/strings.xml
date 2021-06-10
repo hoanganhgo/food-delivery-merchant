@@ -32,8 +32,8 @@
     <string name="wait_shipper">Wait shipper</string>
     <string name="wait_dish">Wait dish</string>
     <string name="shipping">Shipping</string>
-    <string name="shipper_name">Shipper name</string>
-    <string name="phone_number">Phone number</string>
+    <string name="shipper_name">Shipper name:</string>
+    <string name="phone_number">Phone number:</string>
     <string name="rate">Rate</string>
     <string name="call_shipper">Call shipper</string>
     <string name="dish">dish</string>
@@ -53,4 +53,5 @@
     <string name="please_add_avatar">Please add avatar for dish</string>
     <string name="enter_description">Enter your description...</string>
     <string name="enter_new_category">Enter new category</string>
+    <string name="options">Options</string>
 </resources>
