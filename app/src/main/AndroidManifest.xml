@@ -38,6 +38,7 @@
         <activity android:name=".activities.DishDetailActivity"/>
         <activity android:name=".activities.OrderActivity"/>
         <activity android:name=".activities.OTPLoginActivity"/>
+        <activity android:label="@string/notification" android:name=".activities.NotificationActivity"/>
     </application>
 
 </manifest>

@@ -78,8 +78,11 @@ public class OrderActivity extends AppCompatActivity {
             TextView tvQuantity = row.findViewById(R.id.tv_quantity);
             TextView tvPrice = row.findViewById(R.id.tv_dish_price);
             TextView tvTotal = row.findViewById(R.id.tv_total);
-            TextView tvOptionLabel = row.findViewById(R.id.tv_option_label);
+            LinearLayout lnOption = row.findViewById(R.id.ln_option);
             TextView tvOptions = row.findViewById(R.id.tv_options);
+            TextView tvOptionQuantity = row.findViewById(R.id.tv_option_quantity);
+            TextView tvOptionPrice = row.findViewById(R.id.tv_option_price);
+            TextView tvOptionTotal = row.findViewById(R.id.tv_option_total);
 
             DishOrder dishOrder = orderModel.getDishOrderList().get(i);
             tvDishName.setText((i + 1) + ". " + dishOrder.dishModel.getName());
@@ -87,8 +90,11 @@ public class OrderActivity extends AppCompatActivity {
             tvPrice.setText(AppUtil.convertCurrency(dishOrder.dishModel.getPrice()));
             tvTotal.setText(AppUtil.convertCurrency(dishOrder.getTotalPrice()));
             tvOptions.setText(dishOrder.dishModel.getOptions());
+            tvOptionQuantity.setText( String.valueOf(dishOrder.num));
+            tvOptionPrice.setText(AppUtil.convertCurrency(dishOrder.dishModel.getOptionPrice()));
+            tvOptionTotal.setText(AppUtil.convertCurrency(dishOrder.dishModel.getOptionPrice() * dishOrder.num));
             if (dishOrder.dishModel.getOptions().isEmpty()) {
-                tvOptionLabel.setVisibility(View.GONE);
+                lnOption.setVisibility(View.GONE);
                 tvOptions.setVisibility(View.GONE);
             }
 

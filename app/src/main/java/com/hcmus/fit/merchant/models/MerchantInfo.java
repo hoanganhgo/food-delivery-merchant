@@ -88,8 +88,28 @@ public class MerchantInfo {
         return 0;
     }
 
-    public ArrayList<DishModel> getDishList() {
-        return dishList;
+    public int getDishListSize() {
+        return dishList.size();
+    }
+
+    public DishModel getDishByIndex(int index) {
+        return dishList.get(index);
+    }
+
+    public void deleteDishByIndex(int index) {
+        dishList.remove(index);
+    }
+
+    public void addDishModel(DishModel dishModel) {
+        dishList.add(dishModel);
+    }
+
+    public void addFirstDish(DishModel dishModel) {
+        dishList.add(0, dishModel);
+    }
+
+    public void clearDishList() {
+        dishList.clear();
     }
 
     public void setAddress(AddressModel address) {

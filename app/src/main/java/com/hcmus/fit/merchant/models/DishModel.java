@@ -17,6 +17,7 @@ public class DishModel {
     private String categoryId;
     private String category;
     private String options;
+    private int optionPrice;
     private int price;
     private final List<OptionModel> optionList = new ArrayList<>();
 
@@ -81,6 +82,14 @@ public class DishModel {
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+    public int getOptionPrice() {
+        return optionPrice;
+    }
+
+    public void setOptionPrice(int optionPrice) {
+        this.optionPrice = optionPrice;
     }
 
     public int getPriceTotal() {

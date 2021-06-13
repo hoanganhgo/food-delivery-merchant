@@ -219,12 +219,18 @@ public class DishDetailActivity extends AppCompatActivity {
     }
 
     private void setContentEditView(int position) {
-        DishModel dishModel = MerchantInfo.getInstance().getDishList().get(position);
-        Picasso.with(this).load(dishModel.getAvatarUri()).into(btnAvatar);
-        editDishName.setText(dishModel.getName());
-        editPrice.setText(String.valueOf(dishModel.getPrice()));
-        int index = MerchantInfo.getInstance().getIndexCategory(dishModel.getCategoryId());
+        DishModel food = MerchantInfo.getInstance().getDishByIndex(position);
+        Picasso.with(this).load(food.getAvatarUri()).into(btnAvatar);
+        editDishName.setText(food.getName());
+        editPrice.setText(String.valueOf(food.getPrice()));
+        int index = MerchantInfo.getInstance().getIndexCategory(food.getCategoryId());
         snDishCategory.setSelection(index);
+
+        btnDeleteDish.setOnClickListener(v -> {
+            DishNetwork.deleteDish(this, food.getCategoryId(), food.getId());
+            MerchantInfo.getInstance().deleteDishByIndex(position);
+            onBackPressed();
+        });
     }
 
     @Override

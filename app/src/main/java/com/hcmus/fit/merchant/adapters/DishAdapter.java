@@ -25,12 +25,12 @@ public class DishAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return MerchantInfo.getInstance().getDishList().size();
+        return MerchantInfo.getInstance().getDishListSize();
     }
 
     @Override
     public Object getItem(int position) {
-        return MerchantInfo.getInstance().getDishList().get(position);
+        return MerchantInfo.getInstance().getDishByIndex(position);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DishAdapter extends BaseAdapter {
             holder = (MyViewHolder) convertView.getTag();
         }
 
-        DishModel dishModel = MerchantInfo.getInstance().getDishList().get(position);
+        DishModel dishModel = MerchantInfo.getInstance().getDishByIndex(position);
 
         if (dishModel.getAvatarUri() != null) {
             Picasso.with(convertView.getContext()).load(dishModel.getAvatarUri()).into(holder.ivAvatar);

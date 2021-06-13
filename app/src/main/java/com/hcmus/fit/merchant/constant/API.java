@@ -19,6 +19,7 @@ public class API {
     public static final String GET_USER_DETAIL = SERVER + "/restaurants/{restaurantID}";
     public static final String CREATE_CATEGORY = SERVER + "/restaurants/{restaurantID}/foodcategories";
     public static final String CREATE_NEW_DISH = SERVER +  "/restaurants/{restaurantID}/foodcategories/{categoryID}/foods";
+    public static final String DELETE_DISH = SERVER + "/restaurants/{merchantId}/foodcategories/{categoryId}/foods/{foodId}";
     public static final String UPDATE_DISH = SERVER + "/restaurants/{restaurantID}/foodcategories/{foodCategoryID}/foods/{foodID}";
     public static final String GET_FOODS = SERVER + "/restaurants/{restaurantID}/foods";
 }

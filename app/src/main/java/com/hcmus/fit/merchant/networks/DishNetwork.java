@@ -123,7 +123,7 @@ public class DishNetwork {
                             dish.setPrice(price);
                             dish.setAvatarUri(avatarUri);
                             dish.createListOption(jsonArray);
-                            MerchantInfo.getInstance().getDishList().add(0, dish);
+                            MerchantInfo.getInstance().addFirstDish(dish);
                             ((AppCompatActivity)context).onBackPressed();
                         }
                     } catch (JSONException e) {
@@ -154,6 +154,37 @@ public class DishNetwork {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
                 return headers;
+            }
+        };
+
+        queue.add(req);
+    }
+
+    public static void deleteDish(Context context, String categoryId, String dishId) {
+        Map<String, String> params = new HashMap<>();
+        params.put("merchantId", MerchantInfo.getInstance().getId());
+        params.put("categoryId", categoryId);
+        params.put("foodId", dishId);
+        String query = QueryUtil.createQuery(API.DELETE_DISH, params);
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest req = new StringRequest(Request.Method.DELETE, query,
+                response -> {
+                    Log.d("delete dish", response.toString());
+                },
+                error -> Log.d("delete dish", error.getMessage()))
+        {
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
+                return params;
             }
         };
 
@@ -287,19 +318,21 @@ public class DishNetwork {
 
                                 for (int j = 0; j < foodArr.length(); j++) {
                                     JSONObject foodJson = foodArr.getJSONObject(j);
+                                    String foodId = foodJson.getString("id");
                                     String foodName = foodJson.getString("Name");
                                     String foodAvatar = foodJson.getString("Avatar");
                                     int price = foodJson.getInt("OriginalPrice");
                                     JSONArray optionArr = foodJson.getJSONArray("Options");
 
                                     DishModel dishModel = new DishModel();
+                                    dishModel.setId(foodId);
                                     dishModel.setCategoryId(categoryId);
                                     dishModel.setCategory(categoryName);
                                     dishModel.setName(foodName);
                                     dishModel.setAvatarUri(foodAvatar);
                                     dishModel.setPrice(price);
                                     dishModel.createListOption(optionArr);
-                                    MerchantInfo.getInstance().getDishList().add(dishModel);
+                                    MerchantInfo.getInstance().addDishModel(dishModel);
                                 }
                             }
 

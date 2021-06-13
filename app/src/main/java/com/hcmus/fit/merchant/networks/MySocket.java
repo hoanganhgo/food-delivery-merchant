@@ -6,10 +6,13 @@ import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.constant.API;
 import com.hcmus.fit.merchant.constant.EventConstant;
 import com.hcmus.fit.merchant.models.MerchantInfo;
+import com.hcmus.fit.merchant.models.NotifyManager;
+import com.hcmus.fit.merchant.models.NotifyModel;
 import com.hcmus.fit.merchant.models.OrderManager;
 import com.hcmus.fit.merchant.models.OrderModel;
 import com.hcmus.fit.merchant.models.ShipperModel;
 import com.hcmus.fit.merchant.utils.AppUtil;
+import com.hcmus.fit.merchant.utils.NotifyUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +37,10 @@ public class MySocket {
                 instance.connect();
                 Log.d("socket","connected...");
                 instance.on(EventConstant.CONNECT, onAuthenticate);
-                instance.on("RESPONSE_CHANGE_STATUS_ROOM", listenStatusRoom);
-                //instance.on("RESPONSE_SHIPPER_CHANGE_COOR", statusRoom);
+                instance.on(EventConstant.RESPONSE_CHANGE_STATUS_ROOM, listenStatusRoom);
                 instance.on(EventConstant.RESPONSE_MERCHANT_CONFIRM_ORDER, receiveNewOrder);
                 instance.on(EventConstant.RESPONSE_UPDATE_SHIPPER, listenUpdateShipper);
+                instance.on(EventConstant.RESPONSE_NOTIFICATION, listenNotification);
 
             } catch (URISyntaxException e) {
                 e.printStackTrace();
@@ -89,6 +92,10 @@ public class MySocket {
 
             OrderManager.getInstance().getWaitingList().add(0, orderModel);
             OrderManager.getInstance().notifyDataChanged(R.string.waiting);
+
+            //code temp notify
+            NotifyUtil.call("New Order", id +", " + customerName + ", " + customerAddress);
+            NotifyUtil.activeIconBell(true);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -156,5 +163,27 @@ public class MySocket {
             e.printStackTrace();
         }
     };
+
+    private static final Emitter.Listener listenNotification = args -> {
+        JSONObject json = (JSONObject) args[0];
+        Log.d("socket-notification", json.toString());
+
+        try {
+            JSONObject data = json.getJSONObject("data");
+            String id = data.getString("_id");
+            String title = data.getString("Title");
+            String content = data.getString("Subtitle");
+            String avatar = data.getString("Thumbnail");
+
+            NotifyModel notifyModel = new NotifyModel(id, title, content, avatar);
+            NotifyManager.getInstance().addNotifyModel(notifyModel);
+
+            NotifyUtil.call(title, content);
+            NotifyUtil.activeIconBell(true);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    };
+
 
 }

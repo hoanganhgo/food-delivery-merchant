@@ -16,6 +16,7 @@ import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.activities.DishDetailActivity;
 import com.hcmus.fit.merchant.adapters.DishAdapter;
 import com.hcmus.fit.merchant.models.DishModel;
+import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.DishNetwork;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class MenuFragment extends Fragment {
 
         lvDish = root.findViewById(R.id.lv_dish);
         lvDish.setAdapter(dishAdapter);
+        MerchantInfo.getInstance().clearDishList();
         DishNetwork.getFoods(getContext(), dishAdapter);
 
         lvDish.setOnItemClickListener((parent, view, position, id) -> {
