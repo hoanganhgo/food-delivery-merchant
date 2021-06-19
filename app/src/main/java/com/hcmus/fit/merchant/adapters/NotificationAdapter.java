@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.models.NotifyManager;
+import com.hcmus.fit.merchant.models.NotifyModel;
+import com.squareup.picasso.Picasso;
 
 public class NotificationAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;
@@ -45,6 +47,13 @@ public class NotificationAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (MyViewHolder) convertView.getTag();
+        }
+
+        NotifyModel notifyModel = NotifyManager.getInstance().getNotify(position);
+        holder.tvTitle.setText(notifyModel.getTitle());
+        holder.tvContent.setText(notifyModel.getContent());
+        if (!notifyModel.getAvatarUrl().isEmpty()) {
+            Picasso.with(convertView.getContext()).load(notifyModel.getAvatarUrl()).into(holder.ivAvatar);
         }
 
         return convertView;

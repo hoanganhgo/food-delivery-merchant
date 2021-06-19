@@ -17,8 +17,7 @@ public class SettingFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_order, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        textView.setText("This is Setting view");
+
         return root;
     }
 }

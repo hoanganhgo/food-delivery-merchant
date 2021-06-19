@@ -53,4 +53,8 @@
     <string name="enter_description">Enter your description...</string>
     <string name="enter_new_category">Enter new category</string>
     <string name="options">Options:</string>
+    <string name="new_order">New Order</string>
+    <string name="payment">Payment</string>
+    <string name="cash">Cash</string>
+    <string name="zalopay">ZaloPay</string>
 </resources>

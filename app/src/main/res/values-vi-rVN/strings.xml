@@ -54,4 +54,8 @@
     <string name="enter_description">Nhập miêu tả của bạn...</string>
     <string name="enter_new_category">Nhập loại món ăn mới</string>
     <string name="options">Tuỳ chọn thêm:</string>
+    <string name="new_order">Đơn hàng mới</string>
+    <string name="payment">Thanh toán</string>
+    <string name="cash">Tiền mặt</string>
+    <string name="zalopay">ZaloPay</string>
 </resources>

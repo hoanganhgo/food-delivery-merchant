@@ -2,6 +2,7 @@ package com.hcmus.fit.merchant.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class OrderFragment extends Fragment {
             startActivity(intent);
         });
 
+        Log.d("view", "OrderFragment create view " + getResources().getString(title));
         orderAdapter.notifyDataSetChanged();
         setupAdapter();
 

@@ -34,7 +34,7 @@ public class OrderActivity extends AppCompatActivity {
     private TextView tvTotal;
     private TextView tvCustomerName;
     private TextView tvAddress;
-    private TextView tvCustomerNote;
+    private TextView tvPayment;
     private Button btnCallCustomer;
     private Button btnReceive;
     private Button btnCancel;
@@ -54,7 +54,7 @@ public class OrderActivity extends AppCompatActivity {
         tvTotal = findViewById(R.id.tv_total);
         tvCustomerName = findViewById(R.id.tv_customer_name);
         tvAddress = findViewById(R.id.tv_customer_address);
-        tvCustomerNote = findViewById(R.id.tv_customer_note);
+        tvPayment = findViewById(R.id.tv_payment);
         btnCallCustomer = findViewById(R.id.btn_call_customer);
         btnReceive = findViewById(R.id.btn_receive);
         btnCancel = findViewById(R.id.btn_cancel);
@@ -104,7 +104,11 @@ public class OrderActivity extends AppCompatActivity {
         tvTotal.setText(AppUtil.convertCurrency(orderModel.getSubTotal()));
         tvCustomerName.setText(orderModel.getCustomerName());
         tvAddress.setText(orderModel.getFullAddress());
-        tvCustomerNote.setText(orderModel.getCustomerNote());
+        if (orderModel.getPayment() == 0) {
+            tvPayment.setText(getResources().getString(R.string.cash));
+        } else if (orderModel.getPayment() == 1) {
+            tvPayment.setText(getResources().getString(R.string.zalopay));
+        }
 
         btnCallCustomer.setOnClickListener(v -> {
             Uri number = Uri.parse("tel:" + orderModel.getCustomerPhone());

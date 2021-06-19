@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,7 @@ import com.hcmus.fit.merchant.models.ItemModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.models.OptionModel;
 import com.hcmus.fit.merchant.networks.DishNetwork;
+import com.hcmus.fit.merchant.utils.AppUtil;
 import com.hcmus.fit.merchant.utils.WidgetUtil;
 import com.squareup.picasso.Picasso;
 
@@ -115,7 +118,7 @@ public class DishDetailActivity extends AppCompatActivity {
         } else if (contentView == 1) {
             btnAddDish.setVisibility(View.GONE);
             btnDeleteDish.setVisibility(View.VISIBLE);
-            btnUpdateDish.setVisibility(View.VISIBLE);
+            btnUpdateDish.setVisibility(View.GONE);
             rlStatus.setVisibility(View.VISIBLE);
             setContentEditView(position);
         }
@@ -162,7 +165,7 @@ public class DishDetailActivity extends AppCompatActivity {
                 View itemView = inflaterItem.inflate(R.layout.alert_add_item, null);
                 TextView tvOptionName = itemView.findViewById(R.id.tv_option_name);
                 EditText editName = itemView.findViewById(R.id.edt_item_name);
-                EditText editPrice = itemView.findViewById(R.id.edt_item_price);
+                EditText editItemPrice = itemView.findViewById(R.id.edt_item_price);
                 Button btnAddItem = itemView.findViewById(R.id.btn_add_item);
                 tvOptionName.setText(optionModel.getName());
                 ItemModel itemModel = new ItemModel();
@@ -173,12 +176,12 @@ public class DishDetailActivity extends AppCompatActivity {
 
                 btnAddItem.setOnClickListener(v1 -> {
                     RelativeLayout rlItem = WidgetUtil.getItemType(getApplicationContext(),
-                            editName.getText().toString(), editPrice.getText().toString(), itemRemoving);
+                            editName.getText().toString(), editItemPrice.getText().toString(), itemRemoving);
                     optionParent.addView(rlItem);
 
                     itemModel.setMaxQuantity(100);
                     itemModel.setName(editName.getText().toString());
-                    itemModel.setPrice(Integer.parseInt(editPrice.getText().toString()));
+                    itemModel.setPrice(Integer.parseInt(editItemPrice.getText().toString()));
                     optionModel.addItem(itemModel);
 
                     alertDialogItem.cancel();
@@ -231,6 +234,13 @@ public class DishDetailActivity extends AppCompatActivity {
             MerchantInfo.getInstance().deleteDishByIndex(position);
             onBackPressed();
         });
+
+        editDishName.setEnabled(false);
+        editPrice.setEnabled(false);
+        btnAddCategory.setVisibility(View.INVISIBLE);
+        snDishCategory.setEnabled(false);
+        btnAvatar.setEnabled(false);
+        btnAddOption.setVisibility(View.GONE);
     }
 
     @Override

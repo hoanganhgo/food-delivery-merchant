@@ -257,10 +257,10 @@
                 android:layout_marginHorizontal="5dp">
                 <Button
                     android:id="@+id/btn_delete_dish"
-                    android:layout_width="165dp"
+                    android:layout_width="265dp"
                     android:layout_height="45dp"
                     android:background="@drawable/bg_btn_white"
-                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/delete"
                     android:textAllCaps="false"
                     android:textSize="18sp"
@@ -276,7 +276,8 @@
                     android:textAllCaps="false"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/green_dark"/>
+                    android:textColor="@color/green_dark"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <Button

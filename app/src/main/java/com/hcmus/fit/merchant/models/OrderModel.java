@@ -21,6 +21,7 @@ public class OrderModel {
 
     private ShipperModel shipper;
 
+    private int payment = 0;  //0: cash,   1: zalopay
     private double distance;
     private long completeAt;
 
@@ -141,5 +142,13 @@ public class OrderModel {
         }
 
         return num;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
     }
 }

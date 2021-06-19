@@ -57,7 +57,6 @@ public class OrderPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return this.orderFragmentList.size();
     }
 

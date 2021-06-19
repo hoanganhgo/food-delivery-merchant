@@ -60,6 +60,20 @@ public class AppUtil {
         return s.toString();
     }
 
+    public static int convertInt(String currency) {
+        currency = currency.replaceAll(",","");
+        currency = currency.replaceAll("đ","");
+
+        int result = 0;
+        try {
+            result = Integer.parseInt(currency);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);

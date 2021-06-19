@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.constant.API;
-import com.hcmus.fit.merchant.constant.EventConstant;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.models.NotifyManager;
 import com.hcmus.fit.merchant.models.NotifyModel;
@@ -25,6 +24,8 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import static com.hcmus.fit.merchant.constant.EventConstant.*;
+
 public class MySocket {
     private static Socket instance = null;
 
@@ -36,11 +37,11 @@ public class MySocket {
                 Log.d("socket","connect...");
                 instance.connect();
                 Log.d("socket","connected...");
-                instance.on(EventConstant.CONNECT, onAuthenticate);
-                instance.on(EventConstant.RESPONSE_CHANGE_STATUS_ROOM, listenStatusRoom);
-                instance.on(EventConstant.RESPONSE_MERCHANT_CONFIRM_ORDER, receiveNewOrder);
-                instance.on(EventConstant.RESPONSE_UPDATE_SHIPPER, listenUpdateShipper);
-                instance.on(EventConstant.RESPONSE_NOTIFICATION, listenNotification);
+                instance.on(CONNECT, onAuthenticate);
+                instance.on(RESPONSE_CHANGE_STATUS_ROOM, listenStatusRoom);
+                instance.on(RESPONSE_MERCHANT_CONFIRM_ORDER, receiveNewOrder);
+                instance.on(RESPONSE_UPDATE_SHIPPER, listenUpdateShipper);
+                instance.on(RESPONSE_NOTIFICATION, listenNotification);
 
             } catch (URISyntaxException e) {
                 e.printStackTrace();
@@ -54,7 +55,7 @@ public class MySocket {
         JSONObject json = new JSONObject();
         try {
             json.put("token", MerchantInfo.getInstance().getToken());
-            instance.emit(EventConstant.AUTHENTICATE, json);
+            instance.emit(AUTHENTICATE, json);
             Log.d("socket","authenticate...");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,6 +69,7 @@ public class MySocket {
             JSONObject data = json.getJSONObject("data");
             String id = data.getString("_id");
             int subtotal = data.getInt("Subtotal");
+            int payment = data.getInt("PaymentMethod");
             String createdAt = data.getString("CreatedAt");
             Calendar calendar = AppUtil.parseCalendar(createdAt);
             JSONArray foodArray = data.getJSONArray("Foods");
@@ -82,6 +84,7 @@ public class MySocket {
             OrderModel orderModel = new OrderModel();
             orderModel.setOrderId(id);
             orderModel.setSubTotal(subtotal);
+            orderModel.setPayment(payment);
             orderModel.setCustomerName(customerName);
             orderModel.setFullAddress(customerAddress);
             orderModel.setCustomerNote("Empty");
@@ -94,8 +97,7 @@ public class MySocket {
             OrderManager.getInstance().notifyDataChanged(R.string.waiting);
 
             //code temp notify
-            NotifyUtil.call("New Order", id +", " + customerName + ", " + customerAddress);
-            NotifyUtil.activeIconBell(true);
+            NotifyUtil.callNewOrder(customerName + ", " + customerAddress);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -106,7 +108,7 @@ public class MySocket {
         JSONObject json = new JSONObject();
         try {
             json.put("orderID", orderId);
-            MySocket.getInstance().emit(EventConstant.REQUEST_MERCHANT_CONFIRM_ORDER, json);
+            MySocket.getInstance().emit(REQUEST_MERCHANT_CONFIRM_ORDER, json);
             Log.d("socket","confirm order >>>");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -117,7 +119,7 @@ public class MySocket {
         JSONObject json = new JSONObject();
         try {
             json.put("orderID", orderId);
-            MySocket.getInstance().emit(EventConstant.REQUEST_MERCHANT_CANCEL_ORDER, json);
+            MySocket.getInstance().emit(REQUEST_MERCHANT_CANCEL_ORDER, json);
             Log.d("socket","cancel order >>>");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,6 +159,7 @@ public class MySocket {
             String fullName = shipperJson.getString("FullName");
             String avatar = shipperJson.getString("Avatar");
             String phone = shipperJson.getString("Phone");
+
             ShipperModel shipperModel = new ShipperModel(id, avatar, fullName, phone);
             OrderManager.getInstance().addShipper(orderId, shipperModel);
         } catch (JSONException e) {

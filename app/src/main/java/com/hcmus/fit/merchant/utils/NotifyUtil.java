@@ -4,7 +4,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -45,6 +44,18 @@ public class NotifyUtil {
 
     public static void call(String title, String content) {
         mBuilder.setContentTitle(title)
+                .setContentText(content);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mainActivity);
+        notificationManager.notify(id++, mBuilder.build());
+    }
+
+    public static void callNewOrder(String content) {
+        if (!activityActive()) {
+            return;
+        }
+
+        mBuilder.setContentTitle(mainActivity.getResources().getString(R.string.new_order))
                 .setContentText(content);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mainActivity);
