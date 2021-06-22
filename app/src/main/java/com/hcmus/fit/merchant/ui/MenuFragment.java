@@ -5,26 +5,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.activities.DishDetailActivity;
 import com.hcmus.fit.merchant.adapters.DishAdapter;
-import com.hcmus.fit.merchant.models.DishModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.DishNetwork;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MenuFragment extends Fragment {
     private ListView lvDish;
-    private Button btnAddDish;
+    private FloatingActionButton btnAddDish;
 
     private DishAdapter dishAdapter;
 
