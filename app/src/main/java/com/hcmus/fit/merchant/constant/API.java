@@ -4,7 +4,7 @@ public class API {
     /**
      * 0: local,  1: release
      */
-    private static final int env = 0;
+    private static final int env = 1;
     private static final String localHost = "http://10.0.2.2:8002";
     private static final String releaseHost = "https://api.merchant.flash.bin.edu.vn";
     private static final String localSocket = "http://10.0.2.2:8010";
