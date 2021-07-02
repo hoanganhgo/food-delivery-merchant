@@ -3,6 +3,7 @@ package com.hcmus.fit.merchant.networks;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -12,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hcmus.fit.merchant.MainActivity;
+import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.activities.OTPLoginActivity;
 import com.hcmus.fit.merchant.constant.API;
 import com.hcmus.fit.merchant.models.AddressModel;
@@ -23,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,7 +137,13 @@ public class SignInNetwork {
                     }
 
                 },
-                error -> Log.d("merchantInfo", error.getMessage()))
+                error -> {
+                    try {
+                        Log.d("merchantInfo", error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -195,5 +204,65 @@ public class SignInNetwork {
         queue.add(req);
     }
 
+    public static void loginWithEmail(Context context, String email, String password) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest req = new StringRequest(Request.Method.POST, API.LOGIN_EMAIL,
+                response -> {
+                    Log.d("login email", response);
+                    JSONObject json = null;
+                    try {
+                        json = new JSONObject(response);
+                        int error = json.getInt("errorCode");
+
+                        if (error == 0) {
+                            JSONObject data = json.getJSONObject("data");
+                            String token = data.getString("token");
+                            MerchantInfo.getInstance().setToken(token);
+
+                            //save token
+                            StorageUtil.putString(context, StorageUtil.TOKEN_KEY, token);
+
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            Toast.makeText(context, context.getResources().getString(R.string.incorrect_login),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                },
+                error -> {
+                    try {
+                        Log.d("Verify", error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
+        {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject();
+                    json.put("email", email);
+                    json.put("password", password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return json.toString().getBytes(StandardCharsets.UTF_8);
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        queue.add(req);
+    }
 
 }

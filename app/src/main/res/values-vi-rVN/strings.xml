@@ -58,4 +58,8 @@
     <string name="payment">Thanh toán</string>
     <string name="cash">Tiền mặt</string>
     <string name="zalopay">ZaloPay</string>
+    <string name="login_phone">Đăng nhập với số điện thoại</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="incorrect_login">Sai email hoặc mật khẩu</string>
 </resources>

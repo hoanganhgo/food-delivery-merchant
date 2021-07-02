@@ -343,7 +343,13 @@ public class DishNetwork {
                         e.printStackTrace();
                     }
                 },
-                error -> Log.d("foods", error.getMessage()))
+                error -> {
+                    try {
+                        Log.d("foods", error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
         {
 
             @Override

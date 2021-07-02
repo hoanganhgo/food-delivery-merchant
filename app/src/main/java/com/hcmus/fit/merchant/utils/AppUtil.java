@@ -29,7 +29,7 @@ public class AppUtil {
     }
 
     public static String getTimeString(Calendar calendar) {
-        return calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+        return calendar.get(Calendar.HOUR) + "h:" + calendar.get(Calendar.MINUTE);
     }
 
     public static String convertCurrency(int money) {
