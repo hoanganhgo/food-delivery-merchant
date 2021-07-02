@@ -2,6 +2,7 @@ package com.hcmus.fit.merchant.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 

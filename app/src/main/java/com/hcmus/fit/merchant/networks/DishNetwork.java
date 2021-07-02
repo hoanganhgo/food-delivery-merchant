@@ -9,8 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -87,7 +89,7 @@ public class DishNetwork {
         JSONObject dishJson = null;
         try {
             dishJson = dishModel.createJson();
-            builder.addTextBody("data", dishJson.toString());
+            builder.addTextBody("data", dishJson.toString(), ContentType.TEXT_PLAIN.withCharset("UTF-8"));
             Log.d("data json", dishJson.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -152,11 +154,18 @@ public class DishNetwork {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
                 headers.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
                 return headers;
             }
         };
 
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        req.setRetryPolicy(mRetryPolicy);
         queue.add(req);
     }
 

@@ -3,11 +3,13 @@ package com.hcmus.fit.merchant;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hcmus.fit.merchant.activities.NotificationActivity;
+import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.MySocket;
 import com.hcmus.fit.merchant.networks.SignInNetwork;
 import com.hcmus.fit.merchant.utils.NotifyUtil;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        Log.d("token", MerchantInfo.getInstance().getToken());
         SignInNetwork.getMerchantInfo(this);
         MySocket.getInstance();
 
