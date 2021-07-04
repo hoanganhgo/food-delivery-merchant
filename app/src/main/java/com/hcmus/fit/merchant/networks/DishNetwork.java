@@ -181,7 +181,13 @@ public class DishNetwork {
                 response -> {
                     Log.d("delete dish", response.toString());
                 },
-                error -> Log.d("delete dish", error.getMessage()))
+                error -> {
+                try {
+                    Log.d("delete dish", error.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            })
         {
             @Override
             public String getBodyContentType() {
@@ -231,7 +237,13 @@ public class DishNetwork {
                         e.printStackTrace();
                     }
                 },
-                error -> Log.d("category", error.getMessage()))
+                error -> {
+                try {
+                    Log.d("category", error.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                })
         {
 
             @Override

@@ -11,9 +11,13 @@ public class MerchantInfo {
     private String email = "";
     private String avatar = "";
     private AddressModel address;
+    private int wallet;
+    private String opening;
+    private String closing;
     private final ArrayList<CategoryModel> categories = new ArrayList<>();
     private final ArrayList<DishModel> dishList = new ArrayList<>();
     private String token = "";
+    public boolean processWithDraw = false;
 
     private MerchantInfo() {
 
@@ -51,7 +55,9 @@ public class MerchantInfo {
     }
 
     public String getToken() {
-        return token;
+        //return token;
+
+        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhY2Y3OGE2NGE0MDZhODQ3ODJhYyIsInJvbGUiOiJtZXJjaGFudCIsImlhdCI6MTYyNTIxNDI3MywiZXhwIjoxNjI1ODE5MDczfQ.bv7dpZz5NJJ0Ex_gHEUV3y73ddPUWZvGvhW2LczAIFg";
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -114,6 +120,34 @@ public class MerchantInfo {
 
     public void setAddress(AddressModel address) {
         this.address = address;
+    }
+
+    public AddressModel getAddress() {
+        return address;
+    }
+
+    public int getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(int wallet) {
+        this.wallet = wallet;
+    }
+
+    public String getOpening() {
+        return opening;
+    }
+
+    public void setOpening(String opening) {
+        this.opening = opening;
+    }
+
+    public String getClosing() {
+        return closing;
+    }
+
+    public void setClosing(String closing) {
+        this.closing = closing;
     }
 
     public void clear() {

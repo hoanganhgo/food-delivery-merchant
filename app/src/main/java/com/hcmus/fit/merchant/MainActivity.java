@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hcmus.fit.merchant.activities.NotificationActivity;
+import com.hcmus.fit.merchant.constant.Constant;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.MySocket;
 import com.hcmus.fit.merchant.networks.SignInNetwork;
@@ -25,9 +28,11 @@ import androidx.appcompat.widget.Toolbar;
 
 
 public class MainActivity extends AppCompatActivity {
+    private long pressBackTime = 0;
 
     private AppBarConfiguration mAppBarConfiguration;
     private MenuItem btnNotification;
+    public TextView tvMerchantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        tvMerchantName = navigationView.getHeaderView(0).findViewById(R.id.tv_merchant_name);
 
         Log.d("token", MerchantInfo.getInstance().getToken());
         SignInNetwork.getMerchantInfo(this);
@@ -93,6 +100,16 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable icon = ResourcesCompat.getDrawable(getResources(), resId, null);
         btnNotification.setIcon(icon);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - pressBackTime > Constant.TIME_EXIT) {
+            Toast.makeText(this, getResources().getString(R.string.notify_exit), Toast.LENGTH_SHORT).show();
+            pressBackTime = System.currentTimeMillis();
+        } else {
+            finishAffinity();
+        }
     }
 
 }

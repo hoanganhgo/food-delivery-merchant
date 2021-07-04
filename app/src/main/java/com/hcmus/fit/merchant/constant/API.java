@@ -22,4 +22,7 @@ public class API {
     public static final String UPDATE_DISH = SERVER + "/restaurants/{restaurantID}/foodcategories/{foodCategoryID}/foods/{foodID}";
     public static final String GET_FOODS = SERVER + "/restaurants/{restaurantID}/foods";
     public static final String LOGIN_EMAIL = SERVER + "/auth/email";
+    public static final String WITH_DRAWS = SERVER + "/restaurants/{restaurantID}/withdraws";
+    public static final String GET_INCOME = SERVER + "/restaurants/{restaurantID}/statistics?montha={montha}&monthb={monthb}&daya={daya}";
+
 }

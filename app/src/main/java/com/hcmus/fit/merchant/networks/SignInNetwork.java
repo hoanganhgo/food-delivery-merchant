@@ -107,7 +107,7 @@ public class SignInNetwork {
         queue.add(req);
     }
 
-    public static void getMerchantInfo(Context context) {
+    public static void getMerchantInfo(MainActivity context) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
         StringRequest req = new StringRequest(Request.Method.GET, API.GET_USER_INFO,
@@ -128,6 +128,7 @@ public class SignInNetwork {
                             MerchantInfo.getInstance().setId(id);
                             MerchantInfo.getInstance().setName(name);
                             MerchantInfo.getInstance().setAvatar(avatar);
+                            context.tvMerchantName.setText(name);
 
                             getMerchantDetail(context, id);
                         }
@@ -166,7 +167,7 @@ public class SignInNetwork {
 
         StringRequest req = new StringRequest(Request.Method.GET, query,
                 response -> {
-                    Log.d("merchantInfo", response);
+                    Log.d("merchantDetail", response);
                     JSONObject json = null;
                     try {
                         json = new JSONObject(response);
@@ -180,9 +181,17 @@ public class SignInNetwork {
                             double longitude = locationJson.getDouble("longitude");
                             double latitude = locationJson.getDouble("latitude");
 
+                            int wallet = data.getInt("Wallet");
+                            JSONArray hours = data.getJSONArray("OpenHours");
+                            String opening = hours.getString(0);
+                            String closing = hours.getString(1);
+
                             MerchantInfo.getInstance().setPhoneNumber(phoneNumber);
                             AddressModel addressModel = new AddressModel(fullAddress, latitude, longitude);
                             MerchantInfo.getInstance().setAddress(addressModel);
+                            MerchantInfo.getInstance().setWallet(wallet);
+                            MerchantInfo.getInstance().setOpening(opening);
+                            MerchantInfo.getInstance().setClosing(closing);
                         }
 
                     } catch (JSONException e) {
@@ -190,7 +199,13 @@ public class SignInNetwork {
                     }
 
                 },
-                error -> Log.d("merchantInfo", error.getMessage()))
+                error -> {
+                try {
+                    Log.d("merchantDetail", error.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                })
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -259,6 +274,52 @@ public class SignInNetwork {
             @Override
             public String getBodyContentType() {
                 return "application/json";
+            }
+        };
+
+        queue.add(req);
+    }
+
+    public static void getUserWallet(Context context) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("restaurantID", MerchantInfo.getInstance().getId());
+        String query = QueryUtil.createQuery(API.GET_USER_DETAIL, params);
+
+        StringRequest req = new StringRequest(Request.Method.GET, query,
+                response -> {
+                    Log.d("Get With Draws", response);
+                    JSONObject json = null;
+                    try {
+                        json = new JSONObject(response);
+                        int error = json.getInt("errorCode");
+
+                        if (error == 0) {
+                            JSONObject data = json.getJSONObject("data");
+                            int wallet = data.getInt("Wallet");
+                            MerchantInfo.getInstance().setWallet(wallet);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                },
+                error -> {
+                try {
+                    Log.d("Get With Draws", error.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + MerchantInfo.getInstance().getToken());
+                return params;
             }
         };
 

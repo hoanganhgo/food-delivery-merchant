@@ -12,11 +12,13 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/tv_merchant_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Cơm mẹ nấu 25k"
         android:textSize="20sp"
         android:fontFamily="@font/roboto_bold"
+        android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 </LinearLayout>
