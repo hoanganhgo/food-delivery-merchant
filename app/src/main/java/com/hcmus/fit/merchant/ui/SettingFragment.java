@@ -1,7 +1,7 @@
 package com.hcmus.fit.merchant.ui;
 
 import android.os.Bundle;
-import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,7 @@ import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.ProfileNetwork;
 import com.hcmus.fit.merchant.networks.SignInNetwork;
 import com.hcmus.fit.merchant.utils.AppUtil;
+import com.hcmus.fit.merchant.utils.StorageUtil;
 import com.squareup.picasso.Picasso;
 
 public class SettingFragment extends Fragment {
@@ -34,6 +35,7 @@ public class SettingFragment extends Fragment {
     private TextView tvClosing;
     private Button btnSubmitMoney;
     private TextView tvProcessing;
+    private Button btnLogout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class SettingFragment extends Fragment {
         tvClosing = root.findViewById(R.id.tv_closing);
         btnSubmitMoney = root.findViewById(R.id.btn_submit_money);
         tvProcessing = root.findViewById(R.id.tv_processing);
+        btnLogout = root.findViewById(R.id.btn_logout);
 
         MerchantInfo merchant = MerchantInfo.getInstance();
 
@@ -73,6 +76,14 @@ public class SettingFragment extends Fragment {
             }
 
             showPopup(R.string.with_draws);
+        });
+
+        btnLogout.setOnClickListener(v -> {
+            Log.d("logout", "Sign out merchant success");
+            MerchantInfo.getInstance().clear();
+            StorageUtil.deleteKey(getContext(), StorageUtil.TOKEN_KEY);
+            getActivity().finish();
+            Toast.makeText(getActivity(), R.string.notify_sign_out,Toast.LENGTH_LONG).show();
         });
 
         return root;

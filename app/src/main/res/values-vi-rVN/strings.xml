@@ -90,4 +90,5 @@
     <string name="month_12">Th. 12</string>
     <string name="notify_value_invalid">Giá trị nhập không hợp lệ</string>
     <string name="notify_exit">Nhấn trở về lần nữa để thoát</string>
+    <string name="notify_sign_out">Đăng xuất thành công</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.hcmus.fit.merchant.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,15 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hcmus.fit.merchant.MainActivity;
 import com.hcmus.fit.merchant.R;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.networks.SignInNetwork;
-import com.hcmus.fit.merchant.utils.JWTUtils;
-import com.hcmus.fit.merchant.utils.StorageUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class LoginActivity extends AppCompatActivity {

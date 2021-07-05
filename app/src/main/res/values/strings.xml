@@ -89,4 +89,5 @@
     <string name="month_12">Dec</string>
     <string name="notify_value_invalid">Enter value is invalid</string>
     <string name="notify_exit">Press back again to exit</string>
+    <string name="notify_sign_out">Sign out success</string>
 </resources>

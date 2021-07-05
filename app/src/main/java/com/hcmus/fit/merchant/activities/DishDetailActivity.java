@@ -1,18 +1,12 @@
 package com.hcmus.fit.merchant.activities;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,7 +32,6 @@ import com.hcmus.fit.merchant.models.ItemModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.models.OptionModel;
 import com.hcmus.fit.merchant.networks.DishNetwork;
-import com.hcmus.fit.merchant.utils.AppUtil;
 import com.hcmus.fit.merchant.utils.WidgetUtil;
 import com.squareup.picasso.Picasso;
 

@@ -18,7 +18,11 @@
         android:theme="@style/Theme.Merchant">
 
         <activity android:name=".activities.LoginEmailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activities.LoginActivity">
 
@@ -27,16 +31,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Merchant.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".LaunchActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Merchant.NoActionBar">
         </activity>
         <activity android:name=".activities.DishDetailActivity"/>
         <activity android:name=".activities.OrderActivity"/>

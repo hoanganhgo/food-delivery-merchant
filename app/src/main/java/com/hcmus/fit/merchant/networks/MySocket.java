@@ -33,8 +33,6 @@ public class MySocket {
         if (instance == null) {
             try {
                 instance = IO.socket(API.SERVER_SOCKET);
-//                instance = IO.socket("https://87e83c19d91f.ngrok.io");
-                Log.d("socket","connect...");
                 instance.connect();
                 Log.d("socket","connected...");
                 instance.on(CONNECT, onAuthenticate);
