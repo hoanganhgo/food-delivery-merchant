@@ -26,6 +26,7 @@ public class WidgetUtil {
 
         TextView tvOptionTitle = getOptionTitle(context);
         tvOptionTitle.setText(optionTitle);
+        tvOptionTitle.setTextSize(15f);
         rlOption.addView(tvOptionTitle);
 
         ImageButton btnIncrease = getIncreaseButton(context);
@@ -75,10 +76,12 @@ public class WidgetUtil {
 
         TextView tvItemTitle = getItemTitle(context);
         tvItemTitle.setText(itemTitle);
+        tvItemTitle.setTextSize(15f);
         rlOption.addView(tvItemTitle);
 
         TextView tvItemPrice = getItemPrice(context);
         tvItemPrice.setText(itemPrice);
+        tvItemPrice.setTextSize(15f);
         rlOption.addView(tvItemPrice);
 
         ImageButton btnDecrease = getDecreaseButton(context);
@@ -117,7 +120,7 @@ public class WidgetUtil {
         params.topMargin = 20;
         params.rightMargin = 100;
         textView.setLayoutParams(params);
-        textView.setText("5000");
+        textView.setText("0");
         textView.setTextSize(17f);
         Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_regular);
         textView.setTypeface(typeface);
@@ -137,6 +140,56 @@ public class WidgetUtil {
         btnIncrease.setLayoutParams(params);
 
         return btnIncrease;
+    }
+
+    public static RelativeLayout getOptionTypeView(Context context, String optionTitle) {
+        RelativeLayout rlOption = new RelativeLayout(context);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        rlOption.setLayoutParams(params);
+
+        TextView tvOptionTitle = getOptionTitle(context);
+        tvOptionTitle.setText(optionTitle);
+        tvOptionTitle.setTextSize(15f);
+        rlOption.addView(tvOptionTitle);
+
+        return rlOption;
+    }
+
+    public static RelativeLayout getItemTypeView(Context context, String itemTitle, int itemPrice) {
+        RelativeLayout rlOption = new RelativeLayout(context);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        rlOption.setLayoutParams(params);
+
+        TextView tvItemTitle = getItemTitle(context);
+        tvItemTitle.setText(itemTitle);
+        tvItemTitle.setTextSize(15f);
+        rlOption.addView(tvItemTitle);
+
+        TextView tvItemPrice = getItemPriceView(context);
+        tvItemPrice.setText(AppUtil.convertCurrency(itemPrice));
+        tvItemPrice.setTextSize(15f);
+        rlOption.addView(tvItemPrice);
+
+        return rlOption;
+    }
+
+    public static TextView getItemPriceView(Context context) {
+        TextView textView = new TextView(context);
+        RelativeLayout.LayoutParams params =
+                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.topMargin = 20;
+        params.rightMargin = 10;
+        textView.setLayoutParams(params);
+        textView.setText("0");
+        textView.setTextSize(17f);
+        Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_regular);
+        textView.setTypeface(typeface);
+        textView.setTextColor(Color.GRAY);
+        return textView;
     }
 
 }

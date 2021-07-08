@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.hcmus.fit.merchant.models.ItemModel;
 import com.hcmus.fit.merchant.models.MerchantInfo;
 import com.hcmus.fit.merchant.models.OptionModel;
 import com.hcmus.fit.merchant.networks.DishNetwork;
+import com.hcmus.fit.merchant.utils.AppUtil;
 import com.hcmus.fit.merchant.utils.WidgetUtil;
 import com.squareup.picasso.Picasso;
 
@@ -218,7 +220,15 @@ public class DishDetailActivity extends AppCompatActivity {
         DishModel food = MerchantInfo.getInstance().getDishByIndex(position);
         Picasso.with(this).load(food.getAvatarUri()).into(btnAvatar);
         editDishName.setText(food.getName());
-        editPrice.setText(String.valueOf(food.getPrice()));
+
+        TextView lbUnit = findViewById(R.id.lb_unit);
+        lbUnit.setVisibility(View.INVISIBLE);
+        editPrice.setText(AppUtil.convertCurrency(food.getPrice()));
+        LinearLayout lnAddOption = findViewById(R.id.ln_add_option);
+        lnAddOption.setVisibility(View.GONE);
+        LinearLayout lnDescription = findViewById(R.id.ln_description);
+        lnDescription.setVisibility(View.GONE);
+
         int index = MerchantInfo.getInstance().getIndexCategory(food.getCategoryId());
         snDishCategory.setSelection(index);
 
@@ -234,6 +244,15 @@ public class DishDetailActivity extends AppCompatActivity {
         snDishCategory.setEnabled(false);
         btnAvatar.setEnabled(false);
         btnAddOption.setVisibility(View.GONE);
+        editDescription.setVisibility(View.GONE);
+
+        LinearLayout optionParent = new LinearLayout(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        optionParent.setLayoutParams(params);
+        optionParent.setOrientation(LinearLayout.VERTICAL);
+        food.createViewOption(this, optionParent);
+        layoutOption.addView(optionParent);
     }
 
     @Override

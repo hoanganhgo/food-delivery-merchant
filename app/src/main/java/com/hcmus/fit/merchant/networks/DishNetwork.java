@@ -221,6 +221,7 @@ public class DishNetwork {
                         if (errorCode == 0) {
                             JSONArray data = json.getJSONArray("data");
                             ArrayList<CategoryModel> categories = MerchantInfo.getInstance().getCategories();
+                            categories.clear();
 
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject categoryJson = data.getJSONObject(i);

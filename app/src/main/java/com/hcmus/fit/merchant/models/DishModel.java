@@ -1,6 +1,11 @@
 package com.hcmus.fit.merchant.models;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.hcmus.fit.merchant.utils.WidgetUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -140,6 +145,19 @@ public class DishModel {
             JSONObject optionJson = optionArr.getJSONObject(i);
             OptionModel optionModel = new OptionModel();
             optionModel.setOptionWithJson(optionJson);
+            this.optionList.add(optionModel);
+        }
+    }
+
+    public void createViewOption(Context context, LinearLayout optionParent) {
+        for (OptionModel option : optionList) {
+            RelativeLayout rlOption = WidgetUtil.getOptionTypeView(context, option.getName());
+            optionParent.addView(rlOption);
+
+            for (ItemModel item : option.getItemList()) {
+                RelativeLayout rlItem = WidgetUtil.getItemTypeView(context, item.getName(), item.getPrice());
+                optionParent.addView(rlItem);
+            }
         }
     }
 }
